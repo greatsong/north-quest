@@ -1,5 +1,5 @@
 // 첫 화면, 도감, 지도 정보, 결과 화면, 지도에서 보기
-import { A, LEVEL_NAME, refreshMarkers, openModal, closeModal, siteFront, cardShell, landmarkType } from './app.js';
+import { A, LEVEL_NAME, bindPhotos, artImg, refreshMarkers, openModal, closeModal, siteFront, cardShell, landmarkType } from './app.js';
 import { $, $$, h, esc, toast, confetti, burst, flip, countUp, ICON } from './ui.js';
 import { sfx, initAudio } from './audio.js';
 import { store } from './store.js';
@@ -185,7 +185,7 @@ export function showAlbum(from = 'title') {
       const c = h(got
         ? `<button class="acard" style="--rc:${r.color};--ec:${eraColor(s)};animation-delay:${i * 25}ms">
             <span class="ac-rar">${r.code}</span><span class="ac-st">${[1, 2, 3].map((k) => `<i class="${k <= st ? 'on' : ''}">★</i>`).join('')}</span>
-            <img alt="" loading="lazy" src="${thumb(landmarkType(s))}">
+            ${artImg(s)}
             <b>${esc(s.name)}</b><small class="era">${esc(s.era)}</small>${s.country === 'CHN' ? '<em>중국 땅</em>' : ''}</button>`
         : `<button class="acard locked" style="--rc:${r.color};animation-delay:${i * 25}ms"><span class="ac-rar">${r.code}</span><span class="q">?</span><small>미발견</small></button>`);
       c.addEventListener('click', () => {
@@ -219,6 +219,7 @@ function albumDetail(s, from) {
   openModal(wrap, { cls: 'dim' });
   setTimeout(() => flip(card, () => {
     card.innerHTML = siteFront(s, { actions: `<div class="qprog">맞힌 문제 ${done} / ${s.quizzes.length}</div><button class="btn ghost" data-a="close">닫기</button><button class="btn primary" data-a="map">지도에서 보기</button>` });
+    bindPhotos(card);
     sfx.flip();
     card.querySelector('[data-a=close]').addEventListener('click', () => { sfx.click(); closeModal(); });
     card.querySelector('[data-a=map]').addEventListener('click', () => { sfx.click(); closeModal(true); viewOnMap(s, from); });

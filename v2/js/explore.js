@@ -1,6 +1,6 @@
 // 탐험 모드: 목적지 카드 → 말 이동 → 랜드마크 등장 → 카드·문제
 import * as THREE from 'three';
-import { A, LEVEL_NAME, settle, refreshMarkers, openModal, closeModal, siteFront, cardShell, runQuiz, pickQuiz, pickGeneral, landmarkType, popAt, shuffle, screenPos } from './app.js';
+import { A, LEVEL_NAME, settle, bindPhotos, artImg, refreshMarkers, openModal, closeModal, siteFront, cardShell, runQuiz, pickQuiz, pickGeneral, landmarkType, popAt, shuffle, screenPos } from './app.js';
 import { $, h, esc, toast, flip, burst, floatText, shake, ICON, countUp } from './ui.js';
 import { sfx } from './audio.js';
 import { store } from './store.js';
@@ -146,7 +146,7 @@ function drawCards() {
       card.classList.remove('back');
       card.innerHTML = `
         <div class="gc-top"><span class="rar">${r.code}</span><span class="era">${esc(s.era)}</span></div>
-        <div class="gc-art"><img alt="" src="${thumb(landmarkType(s))}">${s.country === 'CHN' ? '<div class="ribbon">지금은 중국 땅</div>' : ''}</div>
+        <div class="gc-art">${artImg(s, 'fill')}${s.country === 'CHN' ? '<div class="ribbon">지금은 중국 땅</div>' : ''}</div>
         <div class="gc-name">${esc(s.name)}</div>
         <div class="gc-region">${G.cfg.region ? esc(s.region) : '지역 비공개'}</div>
         <div class="mc-dist"><b>${dir}쪽 약 ${Math.round(km)}km</b><span>${cost}걸음</span></div>
@@ -349,6 +349,7 @@ function showCard(s, { review = false, isNew = false } = {}) {
     : `<button class="btn primary" data-a="quiz">문제 풀기 <small>정답 +${G.cfg.bonus}걸음</small></button>`;
   setTimeout(() => flip(card, () => {
     card.innerHTML = siteFront(s, { actions });
+    bindPhotos(card);
     sfx.flip();
     card.querySelector('[data-a]').addEventListener('click', (e) => {
       sfx.click();

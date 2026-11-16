@@ -129,13 +129,61 @@ export function closeModal(silent = false) {
 
 // ───────────────────────── 카드
 export function landmarkType(s) { return LANDMARK[s.id] || 'mountain'; }
+// ───────────────────────── 실제 사진
+const PHOTO_BASE = '../shared/';
+export function photosOf(s) { return (A.photos && A.photos[s.id]) || []; }
+export function photoUrl(ph) { return PHOTO_BASE + ph.file; }
+/** 사진이 있으면 사진 img, 없으면 모형 그림. 사진을 못 불러오면 모형으로 바뀐다(main.js 오류 처리) */
+export function artImg(s, cls = '') {
+  const ph = photosOf(s)[0];
+  const t = landmarkType(s);
+  if (!ph) return `<img alt="" class="${cls}" src="${thumb(t)}">`;
+  return `<img alt="${esc(ph.caption)}" class="photo ${cls}" loading="lazy" decoding="async" data-fb="${t}" src="${photoUrl(ph)}">`;
+}
+export function credit(ph) {
+  return `<a class="credit" href="${esc(ph.source)}" target="_blank" rel="noopener noreferrer">사진: ${esc(ph.author)} · ${esc(ph.license)}</a>`;
+}
+function photoBlock(s) {
+  const list = photosOf(s), t = landmarkType(s);
+  const chn = s.country === 'CHN' ? '<div class="ribbon">지금은 중국 땅</div>' : '';
+  if (!list.length) return `<div class="gc-art"><img alt="" src="${thumb(t)}">${chn}</div>`;
+  return `<div class="gc-photo" data-i="0">
+    <div class="ph-track">${list.map((ph, i) => `<img alt="${esc(ph.caption)}" loading="lazy" decoding="async" data-fb="${t}" src="${photoUrl(ph)}" class="${i ? '' : 'on'}">`).join('')}</div>
+    <img class="ph-model" alt="" src="${thumb(t)}">${chn}
+    ${list.length > 1 ? `<button class="ph-nav prev" aria-label="이전 사진">‹</button><button class="ph-nav next" aria-label="다음 사진">›</button>
+    <div class="ph-dots">${list.map((_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('')}</div>` : ''}
+  </div>
+  <div class="ph-cap">${list.map((ph, i) => `<div class="${i ? '' : 'on'}"><span>${esc(ph.caption)}</span>${credit(ph)}</div>`).join('')}</div>`;
+}
+/** 카드 사진 넘겨 보기(버튼·점·좌우 밀기) */
+export function bindPhotos(root) {
+  const box = root.querySelector('.gc-photo');
+  if (!box) return;
+  const imgs = [...box.querySelectorAll('.ph-track img')];
+  const caps = [...root.querySelectorAll('.ph-cap > div')];
+  const dots = [...box.querySelectorAll('.ph-dots i')];
+  if (imgs.length < 2) return;
+  let i = 0;
+  const go = (n) => {
+    i = (n + imgs.length) % imgs.length;
+    [imgs, caps, dots].forEach((arr) => arr.forEach((el, k) => el.classList.toggle('on', k === i)));
+    sfx.flip();
+  };
+  box.querySelector('.prev').addEventListener('click', (e) => { e.stopPropagation(); go(i - 1); });
+  box.querySelector('.next').addEventListener('click', (e) => { e.stopPropagation(); go(i + 1); });
+  dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
+  let sx = null;
+  box.addEventListener('pointerdown', (e) => { sx = e.clientX; });
+  box.addEventListener('pointerup', (e) => { if (sx != null && Math.abs(e.clientX - sx) > 40) go(i + (e.clientX < sx ? 1 : -1)); sx = null; });
+}
+
 export function siteFront(s, { actions = '', compact = false } = {}) {
   const r = RARITY[s.fame];
   const st = mastery(store, s.id);
   const stars = [1, 2, 3].map((i) => `<i class="${i <= st ? 'on' : ''}">★</i>`).join('');
   return `
   <div class="gc-top"><span class="rar">${r.code}</span><span class="era">${esc(s.era)}</span><span class="typ">${s.type === 'nature' ? '자연' : '역사'}</span><span class="stars" title="문제 정답 기록">${stars}</span></div>
-  <div class="gc-art"><img alt="" src="${thumb(landmarkType(s))}">${s.country === 'CHN' ? '<div class="ribbon">지금은 중국 땅</div>' : ''}</div>
+  ${photoBlock(s)}
   <div class="gc-name">${esc(s.name)}</div>
   <div class="gc-region">${esc(s.region)}${s.approx ? ' <span class="approx">대략적 위치</span>' : ''}</div>
   <div class="gc-body">

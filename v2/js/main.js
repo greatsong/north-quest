@@ -49,13 +49,15 @@ async function boot() {
   A.low = low;
   progress(0.1, '지도판을 꺼내는 중');
   const base = '../shared/data';
-  const [content, heights, mask] = await Promise.all([
+  const [content, photosData, heights, mask] = await Promise.all([
     loadContent(base),
+    fetch(base + '/photos.json').then((r) => (r.ok ? r.json() : {})).catch(() => ({})),
     loadHeights(base, low ? '384x387' : '768x775'),
     loadMask(low),
   ]);
   progress(0.55, '지형을 만드는 중');
   A.content = content;
+  A.photos = (photosData && photosData.photos) || {};
   A.sites = content.sites;
   A.general = content.general;
   for (const s of A.sites) A.byId[s.id] = s;
@@ -148,6 +150,25 @@ function runDemo(mode, demo) {
   }
   function moveDirect(x, z) { const s = W.project(x, W.surfaceY(x, z), z); A.onTap(s.x, s.y); }
 }
+
+// 사진을 못 불러오면 같은 장소의 모형 그림으로 바꾼다
+document.addEventListener('error', (e) => {
+  const el = e.target;
+  if (el && el.tagName === 'IMG' && el.dataset && el.dataset.fb) {
+    const t = el.dataset.fb;
+    delete el.dataset.fb;
+    el.classList.add('fallback');
+    el.src = thumb(t);
+    const cr = el.closest('figure')?.querySelector('.credit');
+    if (cr) cr.remove();
+    const box = el.closest('.gc-photo');
+    if (box) { // 카드 넘겨 보기: 같은 순서의 출처 표시를 숨긴다
+      const k = [...box.querySelectorAll('.ph-track img')].indexOf(el);
+      const cap = box.parentElement.querySelectorAll('.ph-cap > div')[k];
+      if (cap) cap.querySelector('.credit')?.remove();
+    }
+  }
+}, true);
 
 function bindInput(world) {
   const el = world.renderer.domElement;

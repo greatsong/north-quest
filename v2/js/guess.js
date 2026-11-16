@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { Line2 } from 'three/addons/lines/Line2.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
-import { A, LEVEL_NAME, settle, refreshMarkers, openModal, closeModal, runQuiz, pickGeneral, landmarkType, shuffle, screenPos } from './app.js';
+import { A, LEVEL_NAME, settle, photosOf, photoUrl, credit, refreshMarkers, openModal, closeModal, runQuiz, pickGeneral, landmarkType, shuffle, screenPos } from './app.js';
 import { $, h, esc, toast, burst, floatText, shake, ICON, countUp } from './ui.js';
 import { sfx } from './audio.js';
 import { store } from './store.js';
@@ -283,7 +283,7 @@ function sheet(s, d, rt, rc, pts, tb, mult, total) {
     <div class="gs-rate"><span class="badge">${rt}</span><b>${d == null ? '-' : (d < 10 ? d.toFixed(1) : Math.round(d)) + 'km'}</b><em>+${total.toLocaleString('ko-KR')}점</em></div>
     <div class="gs-break">${d == null ? '시간 안에 던지지 못했습니다' : `거리 점수 ${pts}${tb ? ` · 시간 보너스 ${tb}` : ''}${mult > 1 ? ` · 연속 근접 x${mult.toFixed(1)}` : ''}`}</div>
     <div class="gs-site" style="--ec:${eraColor(s)}">
-      <img alt="" src="${thumb(landmarkType(s))}">
+      ${photosOf(s)[0] ? `<figure class="gs-ph"><img alt="${esc(photosOf(s)[0].caption)}" loading="lazy" decoding="async" data-fb="${landmarkType(s)}" src="${photoUrl(photosOf(s)[0])}">${credit(photosOf(s)[0])}</figure>` : `<img alt="" src="${thumb(landmarkType(s))}">`}
       <div><b>${esc(s.name)}</b><small>${esc(s.region)} · ${esc(s.era)}${s.approx ? ' · 대략적 위치' : ''}</small><p>${esc(s.summary)}</p>${s.country === 'CHN' ? '<span class="cn">지금은 중국 땅</span>' : ''}</div>
     </div>
     <div class="gc-actions"><button class="btn primary" id="gsNext">${lastAll && last ? '결과 보기' : '다음 문제'}</button></div>

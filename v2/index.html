@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>북녘 탐험대 · 미니어처 디오라마</title>
+<meta name="description" content="책상 위 미니어처 지도에서 한반도 북쪽의 역사 유적과 지형을 탐험하는 교육 게임">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Ccircle cx=%2720%27 cy=%2711%27 r=%277%27 fill=%27%23ff6f61%27/%3E%3Cpath d=%27M15 18h10l4 13H11z%27 fill=%27%23ff6f61%27/%3E%3Crect x=%278%27 y=%2731%27 width=%2724%27 height=%275%27 rx=%272.5%27 fill=%27%23ff6f61%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&family=Do+Hyeon&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="labels"></div>
+<div id="hud"></div>
+<div id="screen"></div>
+<div id="modal"></div>
+<div id="fx"><canvas id="confetti"></canvas></div>
+<div id="toasts"></div>
+<button id="muteBtn" class="rb mute" aria-label="소리 끄기"></button>
+<div id="loading">
+  <div class="ld-box">
+    <div class="ld-pawn"><i></i><b></b><span></span></div>
+    <div class="ld-t">북녘 탐험대</div>
+    <div class="ld-bar"><i id="ldBar"></i></div>
+    <div class="ld-msg" id="ldMsg">불러오는 중</div>
+  </div>
+</div>
+<pre id="err"></pre>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -34,7 +34,11 @@ async function boot() {
   setMuted(!!store.muted);
   initFx($('#fxc'));
   ldProgress(15);
-  const content = await loadContent('../shared/data');
+  const [content, photos] = await Promise.all([
+    loadContent('../shared/data'),
+    fetch('../shared/data/photos.json').then((r) => (r.ok ? r.json() : {})).then((j) => j.photos || {}).catch(() => ({})),
+  ]);
+  S.photos = photos;
   S.sites = content.sites; S.general = content.general; S.meta = content.meta; S.geo = content.geo;
   for (const s of S.sites) S.byId[s.id] = s;
   ldProgress(40);
@@ -143,7 +147,7 @@ function confirmLeave(fn) {
 
 function cleanupMode() {
   closeCard(true); hideChooser(); WD.setSignal(null); WD.setReticle(null); WD.clearArcs(); clearAnchors();
-  WD.setAutoRotate(false); WD.setHalos([]); WD.setDim(0);
+  WD.setAutoRotate(false); WD.setHalos([]); WD.setDim(0); WD.hideLandmark(); WD.setFrameShift(0, 0);
   $('#objective').classList.remove('on'); $('#guessbar').classList.remove('on'); $('#edge-arrow').classList.remove('on');
   $('#hud-stats').innerHTML = '';
   if (S.titleCycle) { clearInterval(S.titleCycle); S.titleCycle = null; }
@@ -290,9 +294,10 @@ async function openSite(site, { context = 'free', fly = true } = {}) {
   if (S.mode === 'explore' && context === 'side') S.mission.phase = 'card';
   if (fly) {
     const az = W.controls.getAzimuthalAngle() + 0.35;
-    await WD.flyTo({ x: site.x, z: site.z, dist: 62, el: 0.6, az, dur: dur(1.5) });
+    await WD.flyTo({ x: site.x, z: site.z, y: WD.groundY(site.x, site.z) + 10, dist: 78 * (innerWidth / innerHeight < 0.8 ? 2.0 : 1), el: 0.5, az, dur: dur(1.5) });
   }
   WD.shockwave(site.x, site.z, W.byId[site.id].color, 30);
+  WD.showLandmark(site);
   sfx.arrive();
   WD.setAutoRotate(true, 0.55);
   const isNew = D.markVisited(site.id);
@@ -314,6 +319,7 @@ function renderCard(site, context) {
       <div class="cd-top"><div class="cd-eras">${eraBadges(site)}</div><div class="cd-rar">${rar.label}<span>${'★'.repeat(site.fame)}${'☆'.repeat(3 - site.fame)}</span></div></div>
       <h2 class="cd-name">${esc(site.name)}</h2>
       <div class="cd-region">${ICON.pin}${esc(site.region)}</div>
+      ${photoBlock(site)}
       <div class="cd-tags">
         <span class="tg">${site.type === 'nature' ? '자연 지형' : '역사 유적'}</span>
         ${site.country === 'CHN' ? '<span class="tg chn">지금은 중국 땅</span>' : ''}
@@ -327,6 +333,7 @@ function renderCard(site, context) {
       <div class="cd-act" id="cd-act"></div>
       <div class="cd-quiz" id="cd-quiz"></div>
     </div>`;
+  bindPhoto(el, site);
   const act = $('#cd-act');
   if (context === 'mission') {
     act.innerHTML = `<button class="btn primary" id="cd-q">${ICON.bolt}문제 풀기</button>`;
@@ -347,6 +354,7 @@ function renderCard(site, context) {
   if (context === 'mission') $('#cd-x').title = '카드 접기';
   requestAnimationFrame(() => el.classList.add('on'));
   document.body.classList.add('card-open');
+  if (innerWidth > 760) WD.setFrameShift(210, 0); else WD.setFrameShift(0, Math.round(innerHeight * 0.24));
   sfx.open();
   if (Q.get('quiz') && context !== 'mission') setTimeout(() => $('#cd-q')?.click(), 50);
 }
@@ -355,6 +363,7 @@ function closeCard(silent = false) {
   if (!el.classList.contains('on')) { S.card = null; return; }
   el.classList.remove('on', 'mini');
   document.body.classList.remove('card-open');
+  WD.hideLandmark(); WD.setFrameShift(0, 0);
   const ctx = S.card?.context;
   S.card = null;
   WD.setAutoRotate(false);
@@ -388,6 +397,66 @@ function renderQuiz(site, quiz, onAnswer) {
     setTimeout(() => $('#qz-ex').scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
   });
   delete box.dataset.done;
+}
+
+
+// ================= 실제 사진 =================
+function photosOf(site) { return (S.photos && S.photos[site.id]) || []; }
+function credit(p) {
+  const lic = p.license || '';
+  return `사진: ${esc(p.author || '작가 미상')}${lic ? ' · ' + esc(lic) : ''}`;
+}
+function photoBlock(site) {
+  const ps = photosOf(site);
+  if (!ps.length) return '';
+  return `<figure class="cd-photo" data-i="0">
+    <div class="ph-frame">
+      <a class="ph-link" href="${esc(ps[0].source)}" target="_blank" rel="noopener noreferrer" title="원본 출처를 새 창에서 엽니다">
+        <img class="ph-img" alt="${esc(ps[0].caption)}" decoding="async" src="../shared/${esc(ps[0].file)}">
+      </a>
+      <div class="ph-scan"></div><div class="ph-hud"><span>VISUAL RECORD</span><em>${ps.length > 1 ? `1/${ps.length}` : ''}</em></div>
+      ${ps.length > 1 ? '<button class="ph-nav prev" aria-label="이전 사진">‹</button><button class="ph-nav next" aria-label="다음 사진">›</button>' : ''}
+    </div>
+    <figcaption><span class="ph-cap">${esc(ps[0].caption)}</span><a class="ph-cred" href="${esc(ps[0].source)}" target="_blank" rel="noopener noreferrer">${credit(ps[0])}</a></figcaption>
+  </figure>`;
+}
+function photoFail(img) {
+  const fr = img.closest('.ph-frame');
+  if (fr) fr.classList.add('fail');
+}
+function bindPhoto(root, site) {
+  const fig = root.querySelector('.cd-photo');
+  if (!fig) return;
+  const ps = photosOf(site);
+  const img = fig.querySelector('.ph-img');
+  const frame = fig.querySelector('.ph-frame');
+  const show = () => { frame.classList.remove('loaded'); void frame.offsetWidth; frame.classList.add('loaded'); };
+  img.addEventListener('load', () => { show(); if (ps[1] && !fig.dataset.pre) { fig.dataset.pre = 1; const pre = new Image(); pre.src = `../shared/${ps[1].file}`; } });
+  img.addEventListener('error', () => photoFail(img));
+  if (img.complete && img.naturalWidth) show();
+  const go = (d) => {
+    const i = (+fig.dataset.i + d + ps.length) % ps.length;
+    fig.dataset.i = i;
+    const p = ps[i];
+    frame.classList.remove('loaded', 'fail');
+    img.src = `../shared/${p.file}`; img.alt = p.caption;
+    fig.querySelector('.ph-link').href = p.source;
+    fig.querySelector('.ph-cap').textContent = p.caption;
+    const c = fig.querySelector('.ph-cred'); c.href = p.source; c.innerHTML = credit(p);
+    fig.querySelector('.ph-hud em').textContent = `${i + 1}/${ps.length}`;
+    sfx.dial();
+  };
+  fig.querySelector('.prev')?.addEventListener('click', (e) => { e.preventDefault(); go(-1); });
+  fig.querySelector('.next')?.addEventListener('click', (e) => { e.preventDefault(); go(1); });
+  // 좌우 밀기
+  let sx = null;
+  frame.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+  frame.addEventListener('touchend', (e) => { if (sx == null || ps.length < 2) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
+}
+function thumbHtml(site, cls) {
+  const p = photosOf(site)[0];
+  if (!p) return '';
+  return `<img class="${cls}" alt="" loading="lazy" decoding="async" src="../shared/${esc(p.file)}" onerror="this.remove()">`;
 }
 
 // ================= 탐험 미션 =================
@@ -535,9 +604,10 @@ async function arriveTarget() {
   $('#edge-arrow').classList.remove('on');
   const site = M.target;
   const az = W.controls.getAzimuthalAngle() + 0.5;
-  await WD.flyTo({ x: site.x, z: site.z, dist: 58, el: 0.55, az, dur: dur(1.8) });
+  await WD.flyTo({ x: site.x, z: site.z, y: WD.groundY(site.x, site.z) + 10, dist: 78 * (innerWidth / innerHeight < 0.8 ? 2.0 : 1), el: 0.5, az, dur: dur(1.8) });
   if (M.done) return;
   WD.setSignal(null);
+  WD.showLandmark(site);
   WD.setMarkerState(site.id, 'reveal');
   WD.shockwave(site.x, site.z, '#ffb547', 45);
   WD.shockwave(site.x, site.z, W.byId[site.id].color, 25);
@@ -870,6 +940,7 @@ async function revealGuess() {
   else { sfx.wrong(); if (d == null || d > 100) shake(document.body, 0.8); }
   popScore(`+${pts}`, innerWidth / 2, innerHeight * 0.35, d != null && d <= 40 ? 'good big' : 'big');
   const mk = W.byId[site.id];
+  const gp = photosOf(site)[0];
   $('#guessbar').innerHTML = `
     <div class="gb-top"><span class="gb-tag">RESULT ${G.i + 1}</span><span class="gb-grade ${grade[1]}">${grade[0]}</span><span class="gb-sec">+${pts}</span></div>
     <div class="gb-res" style="--c:${mk.color}">
@@ -877,8 +948,10 @@ async function revealGuess() {
       <div class="gb-info"><b>${esc(site.name)}</b><small>${esc(site.region)}${site.country === 'CHN' ? ' · <em class="chn">지금은 중국 땅</em>' : ''}</small>
       ${S.level === 3 ? `<span class="era-res ${eraOk ? 'ok' : 'no'}">${eraOk ? '시대 판정 성공 +300' : '시대 판정 실패'} · 정답 ${site.eras.map((e) => e === '자연' ? '자연 지형' : e).join('·')}</span>` : `<span class="era-res">${eraBadges(site)}</span>`}
       </div>
+      ${gp ? `<a class="gb-ph" href="${esc(gp.source)}" target="_blank" rel="noopener noreferrer" title="원본 출처를 새 창에서 엽니다"><img alt="${esc(gp.caption)}" decoding="async" src="../shared/${esc(gp.file)}" onerror="this.parentNode.classList.add('fail')"></a>` : ''}
     </div>
     <p class="gb-sum">${esc(site.summary)}</p>
+    ${gp ? `<a class="gb-cred" href="${esc(gp.source)}" target="_blank" rel="noopener noreferrer">${esc(gp.caption)} · ${credit(gp)}</a>` : ''}
     <div class="gb-act"><span></span><button class="btn primary" id="g-next">${G.i + 1 >= G.qs.length ? '결과 보기' : '다음 표적'} ›</button></div>`;
   $('#g-next').onclick = () => { sfx.click(); nextGuess(); };
 }
@@ -963,7 +1036,7 @@ function openArchive() {
       <div class="chips" id="af-type">${[['all', '전체 유형'], ['history', '역사 유적'], ['nature', '자연 지형']].map(([k, n]) => `<button data-t="${k}" class="${AF.type === k ? 'on' : ''}">${n}</button>`).join('')}</div>
     </div>
     <div class="timeline" id="ar-tl"></div>
-    <p class="ar-hint">카드를 누르면 관제실 지도가 그 장소로 이동합니다.</p>
+    <p class="ar-hint">카드를 누르면 관제실 지도가 그 장소로 이동합니다. 사진의 작가·라이선스·출처는 장소 카드에서 확인할 수 있습니다.</p>
   </div>`;
   showScreen('archive');
   $('#ar-back').onclick = () => { sfx.click(); hideScreen('archive'); };
@@ -980,7 +1053,9 @@ function openArchive() {
       <div class="tl-cards">${list.map((s) => {
         const c = D.isCollected(s.id);
         const sv = s.quizzes.filter((q, i) => store.solved[`${s.id}:${i}`]).length;
-        return `<button class="tl-card ${c ? 'got' : 'lock'} ${RARITY[s.fame].cls}" data-id="${s.id}">
+        const tp = photosOf(s)[0];
+        return `<button class="tl-card ${c ? 'got' : 'lock'} ${RARITY[s.fame].cls} ${tp ? 'has-ph' : ''}" data-id="${s.id}"${tp ? ` title="${esc(tp.caption)} (${credit(tp)})"` : ''}>
+          ${thumbHtml(s, 'tc-img')}
           <span class="tc-st">${'★'.repeat(s.fame)}</span>
           <b>${esc(s.name)}</b><small>${esc(s.region)}</small>
           <span class="tc-foot">${c ? `<em>${ICON.check}수집</em>` : '<em class="lk">미수집</em>'}${s.country === 'CHN' ? '<em class="chn">중국 땅</em>' : ''}<em class="qq">문제 ${sv}/5</em></span>

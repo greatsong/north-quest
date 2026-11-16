@@ -12,6 +12,7 @@ import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 import { WORLD_W, WORLD_H, lonLatToWorld, loadHeights } from '../../shared/geo.js';
 import { ERAS, parseEras } from './data.js';
+import { buildLandmark, LANDMARK } from '../../shared/models.js';
 
 const EXAG = 9;      // 육지 고도 과장 배율
 const SEA_EX = 1.6;  // 바다 깊이 배율
@@ -670,6 +671,103 @@ function updateLabels() {
   }
 }
 
+
+// ---------------- 유적 홀로그램 모형 ----------------
+const holoVS = `varying vec3 vWorld; varying vec3 vN;
+  void main(){ vec4 wp = modelMatrix * vec4(position,1.0); vWorld = wp.xyz; vN = normalize(mat3(modelMatrix) * normal); gl_Position = projectionMatrix * viewMatrix * wp; }`;
+const holoFS = `uniform vec3 uColor; uniform float uCut; uniform float uTime; uniform float uBase;
+  varying vec3 vWorld; varying vec3 vN;
+  void main(){
+    if (vWorld.y > uCut) discard;
+    vec3 N = normalize(vN); vec3 V = normalize(cameraPosition - vWorld);
+    if (dot(N, V) < 0.0) N = -N;
+    float diff = 0.42 + 0.58 * max(dot(N, normalize(vec3(-0.4, 0.9, 0.35))), 0.0);
+    float fres = pow(1.0 - abs(dot(N, V)), 2.2);
+    float scan = 0.82 + 0.18 * step(0.5, fract((vWorld.y - uBase) * 0.9 - uTime * 1.2));
+    float edge = smoothstep(1.4, 0.0, uCut - vWorld.y);
+    vec3 col = uColor * diff * scan * 0.6 + vec3(0.2, 0.9, 1.0) * fres * 0.75 + vec3(0.7, 1.0, 1.0) * edge * 1.6;
+    gl_FragColor = vec4(col, 1.0);
+  }`;
+const LM = { group: null, mats: [], t: 0, site: null, base: 0, height: 1, ped: null, cone: null };
+export function showLandmark(site) {
+  hideLandmark();
+  const type = LANDMARK[site.id];
+  if (!type) return false;
+  const model = buildLandmark(type);
+  const S = 2.3;
+  model.scale.setScalar(S);
+  const mats = new Map();
+  const uTime = { value: 0 }, uCut = { value: -1e4 }, uBase = { value: 0 };
+  model.traverse((o) => {
+    if (!o.isMesh) return;
+    const src = o.material;
+    const key = '#' + src.color.getHexString() + (src.emissive && src.emissiveIntensity > 0 ? 'e' : '');
+    if (!mats.has(key)) {
+      const c = src.color.clone();
+      if (src.emissive && src.emissiveIntensity > 0) c.lerp(src.emissive, 0.5).multiplyScalar(1.6);
+      mats.set(key, new THREE.ShaderMaterial({ vertexShader: holoVS, fragmentShader: holoFS, side: THREE.DoubleSide,
+        uniforms: { uColor: { value: c }, uCut, uTime, uBase } }));
+    }
+    o.material = mats.get(key);
+    o.castShadow = o.receiveShadow = false;
+  });
+  const g = new THREE.Group();
+  const gy = groundY(site.x, site.z);
+  const lift = 6;
+  g.position.set(site.x, gy + lift, site.z);
+  // 홀로그램 받침
+  const pedMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0.25, 1.6, 1.9), transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+  const ped = new THREE.Group();
+  ped.add(new THREE.Mesh(new THREE.RingGeometry(12.5, 13.3, 96).rotateX(-Math.PI / 2), pedMat));
+  ped.add(new THREE.Mesh(new THREE.RingGeometry(10.2, 10.5, 96, 1, 0, Math.PI * 1.5).rotateX(-Math.PI / 2), pedMat));
+  const discMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0.05, 0.35, 0.45), transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+  ped.add(new THREE.Mesh(new THREE.CircleGeometry(12.5, 64).rotateX(-Math.PI / 2), discMat));
+  ped.position.y = -0.4;
+  // 받침에서 지면으로 내려가는 빛 기둥
+  const cone = new THREE.Mesh(new THREE.CylinderGeometry(12.5, 3, lift + 2, 48, 1, true).translate(0, -(lift + 2) / 2 - 0.4, 0), beamMaterial('#3ff4ff'));
+  cone.material.uniforms.uOpacity.value = 0.35;
+  g.add(ped, cone, model);
+  W.scene.add(g);
+  const box = new THREE.Box3().setFromObject(model);
+  Object.assign(LM, { group: g, model, mats: [...mats.values()], uTime, uCut, uBase, t: 0, site, base: box.min.y, height: box.max.y - box.min.y, ped, cone, pedMat });
+  uBase.value = box.min.y;
+  return true;
+}
+export function hideLandmark() {
+  if (!LM.group) return;
+  W.scene.remove(LM.group);
+  LM.group.traverse((o) => { if (o.isMesh) { o.geometry.dispose(); } });
+  for (const m of LM.mats) m.dispose();
+  LM.group = null; LM.site = null;
+}
+function updateLandmark(dt, time) {
+  if (!LM.group) return;
+  LM.t += dt;
+  const k = W.fast ? 1 : Math.min(1, Math.max(0, (LM.t - 0.2) / 1.6));
+  LM.uCut.value = LM.base + (LM.height + 2) * k - (k < 1 ? 0 : -50);
+  LM.uTime.value = time;
+  LM.model.rotation.y = time * 0.35;
+  LM.model.position.y = Math.sin(time * 1.6) * 0.5;
+  const pk = W.fast ? 1 : Math.min(1, LM.t / 0.5);
+  LM.ped.scale.setScalar(0.2 + 0.8 * (1 - Math.pow(1 - pk, 3)));
+  LM.ped.rotation.y = -time * 0.4;
+  LM.pedMat.opacity = 0.6 + 0.25 * Math.sin(time * 4);
+  LM.cone.material.uniforms.uTime.value = time;
+}
+
+// ---------------- 화면 중심 이동 (카드가 가리는 쪽 보정) ----------------
+const SHIFT = { x: 0, y: 0, tx: 0, ty: 0 };
+export function setFrameShift(x, y) { SHIFT.tx = x; SHIFT.ty = y; }
+function updateShift(dt) {
+  const k = W.fast ? 1 : Math.min(1, dt * 4);
+  SHIFT.x += (SHIFT.tx - SHIFT.x) * k; SHIFT.y += (SHIFT.ty - SHIFT.y) * k;
+  if (Math.abs(SHIFT.x) < 0.5 && Math.abs(SHIFT.y) < 0.5 && !SHIFT.tx && !SHIFT.ty) {
+    if (W.camera.view && W.camera.view.enabled) W.camera.clearViewOffset();
+    return;
+  }
+  W.camera.setViewOffset(innerWidth, innerHeight, SHIFT.x, SHIFT.y, innerWidth, innerHeight);
+}
+
 // ---------------- 시점 · 표시 방식 ----------------
 export function setView(v) { W.view = v; W.mixTarget = [0, 0.55, 1][v]; }
 export function setDim(d) { W.tMat.uniforms.uDim.value = d; }
@@ -708,7 +806,7 @@ function tick(now) {
     const k = W.fast ? 1 : Math.min(1, dt * 4);
     mk.h += (mk.hT - mk.h) * k; mk.a += (mk.aT - mk.a) * k; mk.rad += (mk.radT - mk.rad) * k;
     const hov = W.hovered === mk.site ? 1.4 : 1;
-    const vis = mk.a > 0.01;
+    const vis = mk.a > 0.01 && LM.site !== mk.site;
     mk.group.visible = vis;
     if (!vis) continue;
     const H = Math.max(0.01, mk.h * kh);
@@ -769,6 +867,8 @@ function tick(now) {
     }
   }
   updateFlight(dt);
+  updateShift(dt);
+  updateLandmark(dt, time);
   if (!W.flying) {
     // 지도 범위 안으로 제한
     const t = W.controls.target, lim = { x: WORLD_W / 2, z: WORLD_H / 2 };

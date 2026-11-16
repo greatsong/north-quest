@@ -1,0 +1,965 @@
+{
+ "photos": {
+  "pyongyang": [
+   {
+    "file": "photos/pyongyang_1.jpg",
+    "caption": "평양 대동강 가에 서 있는 대동문",
+    "author": "David Stanley from Nanaimo, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Taedong_Gate,_Pyongyang_(5063216865).jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     39.02258,
+     125.75675
+    ]
+   },
+   {
+    "file": "photos/pyongyang_2.jpg",
+    "caption": "나무 사이로 보이는 대동문의 석축과 2층 문루",
+    "author": "Raymond K. Cunningham, Jr.",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Taedongmun.jpg",
+    "w": 640,
+    "h": 427,
+    "geo": [
+     39.02257,
+     125.75675
+    ]
+   }
+  ],
+  "baekdu": [
+   {
+    "file": "photos/baekdu_1.jpg",
+    "caption": "중국 쪽 서파에서 내려다본 백두산 천지",
+    "author": "SSchlhmr",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Paektu_Mountain%27s_Heaven_Lake.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     41.9968,
+     128.029036
+    ]
+   },
+   {
+    "file": "photos/baekdu_2.jpg",
+    "caption": "국제우주정거장에서 찍은 백두산 분화구와 천지",
+    "author": "NASA Earth Science and Remote Sensing Unit",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Satellite_picture_of_Heaven_Lake_-_ISS041-E-78210.jpg",
+    "w": 1024,
+    "h": 992,
+    "geo": [
+     42.0,
+     128.1
+    ]
+   }
+  ],
+  "gaema": [
+   {
+    "file": "photos/gaema_1.jpg",
+    "caption": "량강도 혜산 서쪽 압록강 상류와 산지(중국 창바이 쪽에서 촬영)",
+    "author": "xue siyang (df45086)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%E5%B7%A1%E9%81%93%E5%B7%A5%E5%87%BA%E5%93%81_photo_by_Xundaogong_-_panoramio_(79).jpg",
+    "w": 1024,
+    "h": 683,
+    "geo": [
+     41.392715,
+     128.042564
+    ]
+   }
+  ],
+  "myohyang": [
+   {
+    "file": "photos/myohyang_1.jpg",
+    "caption": "묘향산 보현사의 팔각 13층 석탑과 뒤쪽 산줄기",
+    "author": "David Stanley from Nanaimo, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pohyon_Temple,_Mount_Myohyang_(5063239771).jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     40.00906,
+     126.23446
+    ]
+   },
+   {
+    "file": "photos/myohyang_2.jpg",
+    "caption": "보현사 경내에서 바라본 묘향산",
+    "author": "Mark Fahey from Sydney, Australia",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mounts_Myohyang_from_the_Pohyon_Temple.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     40.00845,
+     126.23526
+    ]
+   }
+  ],
+  "junggang": [
+   {
+    "file": "photos/junggang_1.jpg",
+    "caption": "압록강 건너 중국 린장에서 바라본 중강진(자강도 중강군) 시가",
+    "author": "xue siyang (df45086)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%E6%9C%9B%E6%B1%9F%E6%A5%BC%E4%B8%8A%E7%9C%8B%E4%B8%AD%E6%B1%9F%E5%92%8C%E4%B8%B4%E6%B1%9F_-_panoramio.jpg",
+    "w": 1000,
+    "h": 667,
+    "geo": [
+     41.775153,
+     126.869946
+    ]
+   },
+   {
+    "file": "photos/junggang_2.jpg",
+    "caption": "중강진 부근 압록강과 강가 들판(중국 쪽에서 촬영)",
+    "author": "xue siyang (df45086)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%E5%B7%A1%E9%81%93%E5%B7%A5%E5%87%BA%E5%93%81_Photo_by_Xundaogong_-_panoramio_(113).jpg",
+    "w": 1024,
+    "h": 682,
+    "geo": [
+     41.781233,
+     126.934919
+    ]
+   }
+  ],
+  "kumgang": [
+   {
+    "file": "photos/kumgang_1.jpg",
+    "caption": "금강산 외금강의 바위 봉우리 세존봉",
+    "author": "のりまき",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Sejonbong_Kumgangsan_20060827.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": null
+   },
+   {
+    "file": "photos/kumgang_2.jpg",
+    "caption": "금강산 구룡폭포",
+    "author": "Uri Tours",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kuryong_Waterfall_%EA%B5%AC%EB%A3%A1%ED%8F%AD%ED%8F%AC_-_North_Korea_(10162249603).jpg",
+    "w": 679,
+    "h": 1024,
+    "geo": null
+   }
+  ],
+  "singye": [
+   {
+    "file": "photos/singye_1.jpg",
+    "caption": "신계사 삼층 석탑과 뒤쪽 금강산 봉우리(2006년)",
+    "author": "のりまき from jawp",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Singyesa_tower_at_Kumgangsan_20060220.jpg",
+    "w": 768,
+    "h": 1024,
+    "geo": null
+   },
+   {
+    "file": "photos/singye_2.jpg",
+    "caption": "1910년대 무렵의 신계사 대웅전과 외금강 봉우리",
+    "author": "Ryūzō Torii",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Temple_at_Kumgang_around_1910s,_Photo-No.5017.jpg",
+    "w": 1024,
+    "h": 787,
+    "geo": null
+   }
+  ],
+  "chilbo": [
+   {
+    "file": "photos/chilbo_1.jpg",
+    "caption": "기암괴석이 늘어선 칠보산 풍경",
+    "author": "Uri Tours",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Chilbo_Mountains_(14561374852).jpg",
+    "w": 1024,
+    "h": 575,
+    "geo": null
+   },
+   {
+    "file": "photos/chilbo_2.jpg",
+    "caption": "칠보산 바닷가(해칠보)의 바위 절벽",
+    "author": "Uri Tours",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Chilbosan_(Mt._Chilbo)_(14133119280).jpg",
+    "w": 1000,
+    "h": 1000,
+    "geo": null
+   }
+  ],
+  "wonsan": [
+   {
+    "file": "photos/wonsan_1.jpg",
+    "caption": "원산 갈마반도의 모래 해변(명사십리 일대)",
+    "author": "Alkhimov Maxim",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Birdes_on_the_beach_-_panoramio.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     39.190822,
+     127.481532
+    ]
+   },
+   {
+    "file": "photos/wonsan_2.jpg",
+    "caption": "원산항 건너편으로 보이는 원산 시가",
+    "author": "stngiam",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Wonsan_in_North_Korea.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     39.173167,
+     127.431167
+    ]
+   }
+  ],
+  "yalu": [
+   {
+    "file": "photos/yalu_1.jpg",
+    "caption": "중국 단둥에서 내려다본 압록강의 두 다리(왼쪽 조중우의교, 오른쪽 끊어진 단교)",
+    "author": "Prince Roy",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dandong,_Liaoning_Province.jpg",
+    "w": 800,
+    "h": 550,
+    "geo": [
+     40.11713,
+     124.38955
+    ]
+   },
+   {
+    "file": "photos/yalu_2.jpg",
+    "caption": "압록강 단교 남쪽 끝 전망대에서 바라본 다리와 압록강",
+    "author": "Prince Roy",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Yalu_railway_bridge,_Dandong,_Liaoning_Province.jpg",
+    "w": 800,
+    "h": 600,
+    "geo": [
+     40.11424,
+     124.39366
+    ]
+   }
+  ],
+  "supung": [
+   {
+    "file": "photos/supung_1.jpg",
+    "caption": "압록강을 가로막은 수풍댐에서 물이 방류되는 모습",
+    "author": "Jacky Lee",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:SupongDam2005.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": null
+   },
+   {
+    "file": "photos/supung_2.jpg",
+    "caption": "수풍댐 둑과 상류 쪽 저수지",
+    "author": "Jacky Lee",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:SupongDamOct2010.jpg",
+    "w": 1024,
+    "h": 574,
+    "geo": null
+   }
+  ],
+  "uiju": [
+   {
+    "file": "photos/uiju_1.jpg",
+    "caption": "일제 강점기 엽서 속 의주 통군정과 압록강",
+    "author": "能田喫茶店 (능전각다점)",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%E7%BE%A9%E5%B7%9E%E7%B5%B1%E8%BB%8D%E4%BA%AD_%EC%9D%98%EC%A3%BC_%ED%86%B5%EA%B5%B0%EC%A0%95(%EC%97%BD%EC%84%9C).jpg",
+    "w": 1024,
+    "h": 664,
+    "geo": null
+   },
+   {
+    "file": "photos/uiju_2.jpg",
+    "caption": "중국 후산 장성에서 바라본 압록강 건너 의주 들판",
+    "author": "chenyingphoto",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Uiju_from_the_Great_Wall.jpg",
+    "w": 1024,
+    "h": 682,
+    "geo": null
+   }
+  ],
+  "tumen": [
+   {
+    "file": "photos/tumen_1.jpg",
+    "caption": "두만강 하류의 조러 우호 철교를 건너는 국제 열차",
+    "author": "TowerCard",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%E5%9B%BD%E9%99%85%E5%AE%A2%E8%BF%90%E5%88%97%E8%BD%A6%E5%9C%A8%E5%9B%BE%E4%BB%AC%E6%B1%9F%E9%93%81%E8%B7%AF%E6%A1%A5%E4%B8%8A%E8%A1%8C%E9%A9%B6%EF%BC%8C%E7%A6%BB%E5%BC%80%E6%9C%9D%E9%B2%9C%E8%BF%9B%E5%85%A5%E4%BF%84%E7%BD%97%E6%96%AF_-_panoramio.jpg",
+    "w": 1024,
+    "h": 678,
+    "geo": [
+     42.41497,
+     130.64065
+    ]
+   },
+   {
+    "file": "photos/tumen_2.jpg",
+    "caption": "라선시 라진항과 뒤쪽 산",
+    "author": "Caitriana Nicholson from 北京 ~ Beijing, 中国 ~ China",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Rajin_harbour_(30778042196).jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": null
+   }
+  ],
+  "hoeryong": [
+   {
+    "file": "photos/hoeryong_1.jpg",
+    "caption": "두만강 건너 중국 쪽에서 본 함경북도 회령 시가와 회령역 일대",
+    "author": "xue siyang (df45086)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%E5%B7%A1%E9%81%93%E5%B7%A5%E5%87%BA%E5%93%81_photo_by_Xundaogong%E2%80%94%E2%80%94%E4%BC%9A%E5%AE%81%E5%B8%82%E5%8C%BA%E5%92%8C%E4%BC%9A%E5%AE%81%E7%81%AB%E8%BD%A6%E7%AB%99_Hoery%C5%8Fng-si_and_Hoery%C5%8Fng_railway_station_-_panoramio.jpg",
+    "w": 1024,
+    "h": 684,
+    "geo": [
+     42.444361,
+     129.742076
+    ]
+   },
+   {
+    "file": "photos/hoeryong_2.jpg",
+    "caption": "일제 강점기 엽서 속 회령 육룡당과 두만강",
+    "author": "會寧小池博文舘 (회령소지박문관)",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%ED%9A%8C%EB%A0%B9_%EC%9C%A1%EB%A3%A1%EB%8B%B9(%EC%97%BD%EC%84%9C)_%E6%9C%83%E5%AF%A7%E5%85%AD%E9%BE%8D%E5%A0%82.jpg",
+    "w": 1024,
+    "h": 662,
+    "geo": null
+   }
+  ],
+  "anak": [
+   {
+    "file": "photos/anak_1.jpg",
+    "caption": "안악 3호분 벽화의 무덤 주인 초상",
+    "author": "Unknown author",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Man_-_Anak_Tomb_No._3.jpg",
+    "w": 700,
+    "h": 642,
+    "geo": [
+     38.44913,
+     125.50814
+    ]
+   },
+   {
+    "file": "photos/anak_2.jpg",
+    "caption": "안악 3호분 벽화의 부엌과 고기 창고 그림",
+    "author": "Unknown author",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Anakkitchen.jpg",
+    "w": 1024,
+    "h": 499,
+    "geo": [
+     38.44913,
+     125.50814
+    ]
+   }
+  ],
+  "gangseo": [
+   {
+    "file": "photos/gangseo_1.jpg",
+    "caption": "강서세무덤 가운데 한 기의 흙무덤 봉분과 입구",
+    "author": "Uri Tours",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:One_of_the_Three_Mausoleums_at_Kangso_(10104282095).jpg",
+    "w": 1024,
+    "h": 680,
+    "geo": null
+   },
+   {
+    "file": "photos/gangseo_2.jpg",
+    "caption": "강서대묘 벽화의 현무(조선고적도보 수록 사진)",
+    "author": "朝鮮總督府",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%ED%98%84%EB%AC%B4_%EC%A1%B0%EC%84%A0%EA%B3%A0%EC%A0%81%EB%8F%84%EB%B3%B4.jpg",
+    "w": 1024,
+    "h": 818,
+    "geo": null
+   }
+  ],
+  "dangun": [
+   {
+    "file": "photos/dangun_1.jpg",
+    "caption": "평양 강동군 단군릉의 돌 피라미드형 무덤과 호랑이 석상",
+    "author": "Laika ac from USA",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Laika_ac_Mausoleum_of_Tangun_(7987312460).jpg",
+    "w": 1024,
+    "h": 698,
+    "geo": [
+     39.141918,
+     126.104736
+    ]
+   }
+  ],
+  "salsu": [
+   {
+    "file": "photos/salsu_1.jpg",
+    "caption": "청천강(살수) 가에 있는 안주 백상루",
+    "author": "David Stanley from Nanaimo, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Anju_Paeksang_Pavilion_(5063239773).jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     39.62219,
+     125.66112
+    ]
+   }
+  ],
+  "dongmyeong": [
+   {
+    "file": "photos/dongmyeong_1.jpg",
+    "caption": "동명왕릉 봉분과 앞쪽 참배길의 돌 조각상",
+    "author": "Sgnpkd",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomb_of_King_Tongmyong.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     38.894592,
+     125.922752
+    ]
+   },
+   {
+    "file": "photos/dongmyeong_2.jpg",
+    "caption": "동명왕릉 정문과 뒤쪽 봉분",
+    "author": "David Clayton Ellsworth",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:King_Tongmyong%27s_Mausoleum_Gate_01.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": null
+   }
+  ],
+  "seonjuk": [
+   {
+    "file": "photos/seonjuk_1.jpg",
+    "caption": "개성 선죽교의 돌다리와 돌난간",
+    "author": "David Clayton Ellsworth",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sonjuk_bridge_in_Kaesong,_North_Korea.jpg",
+    "w": 800,
+    "h": 600,
+    "geo": null
+   },
+   {
+    "file": "photos/seonjuk_2.jpg",
+    "caption": "1910년대 무렵의 선죽교",
+    "author": "Ryūzō Torii",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Sonjuk_Bridge,_part_of_Historic_Monuments_and_Sites_in_Kaesong_around_1910s,_Photo-No.5080.jpg",
+    "w": 640,
+    "h": 490,
+    "geo": null
+   }
+  ],
+  "bakyeon": [
+   {
+    "file": "photos/bakyeon_1.jpg",
+    "caption": "천마산 바위 절벽을 따라 떨어지는 박연폭포와 고모담",
+    "author": "Ffggss",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%E6%9C%B4%E6%B7%B5%E3%81%AE%E6%BB%9D.jpg",
+    "w": 1024,
+    "h": 681,
+    "geo": null
+   }
+  ],
+  "seonggyun": [
+   {
+    "file": "photos/seonggyun_1.jpg",
+    "caption": "개성 고려 성균관의 기와 건물과 앞마당 길",
+    "author": "Nicor",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Koryo_Songgyungwan_03.JPG",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     37.99227,
+     126.57102
+    ]
+   },
+   {
+    "file": "photos/seonggyun_2.jpg",
+    "caption": "고려 성균관 마당의 큰 나무와 옛 건물(지금은 고려박물관)",
+    "author": "Christophe95",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Songgyungwan_01.jpg",
+    "w": 1024,
+    "h": 766,
+    "geo": [
+     37.99159,
+     126.5714
+    ]
+   }
+  ],
+  "manwoldae": [
+   {
+    "file": "photos/manwoldae_1.jpg",
+    "caption": "만월대 회경전 터의 높은 돌계단과 뒤쪽 송악산",
+    "author": "Eternal and life",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%EB%A7%8C%EC%9B%94%EB%8C%80.jpg",
+    "w": 766,
+    "h": 408,
+    "geo": null
+   }
+  ],
+  "wanggeon": [
+   {
+    "file": "photos/wanggeon_1.jpg",
+    "caption": "왕건릉 앞에 늘어선 문무인 돌 조각상",
+    "author": "Uri Tours",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Statues_at_the_Tomb_of_King_Wanggon_(10104313105).jpg",
+    "w": 1024,
+    "h": 680,
+    "geo": null
+   },
+   {
+    "file": "photos/wanggeon_2.jpg",
+    "caption": "왕건릉 들머리의 잔디 마당과 참배길, 안쪽 능역",
+    "author": "Kallgan",
+    "license": "CC BY-SA 1.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/1.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomb_of_Wang_Geon_-_Kaesong07.jpg",
+    "w": 600,
+    "h": 450,
+    "geo": null
+   }
+  ],
+  "hungnam": [
+   {
+    "file": "photos/hungnam_1.jpg",
+    "caption": "1950년 12월 24일 철수 직후 폭파되는 흥남 부두 시설과 미국 군함",
+    "author": "U.S. Navy (National Archives 80-G-K-11771)",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:USS_Begor_(APD-127)_off_Hungnam_on_24_December_1950_(80-G-K-11771).jpg",
+    "w": 1024,
+    "h": 810,
+    "geo": null
+   },
+   {
+    "file": "photos/hungnam_2.jpg",
+    "caption": "1950년 12월 흥남 철수 때 메러디스 빅토리호 갑판에 탄 피란민",
+    "author": "U.S. Navy",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Refugees_during_the_Hungnam_evacuation,_1950.jpg",
+    "w": 1024,
+    "h": 810,
+    "geo": null
+   }
+  ],
+  "gongmin": [
+   {
+    "file": "photos/gongmin_1.jpg",
+    "caption": "나란히 놓인 공민왕릉(현릉)과 노국공주릉(정릉)의 두 봉분",
+    "author": "Bari Élisabeth",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Les_tombes_jumelles.jpg",
+    "w": 1024,
+    "h": 683,
+    "geo": null
+   },
+   {
+    "file": "photos/gongmin_2.jpg",
+    "caption": "공민왕릉 두 봉분 사이의 돌 양 조각",
+    "author": "John Pavelka from Austin, TX, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Stone_Sheep_at_King_Kongmin%27s_Mausoleum.jpg",
+    "w": 1024,
+    "h": 726,
+    "geo": [
+     37.982443,
+     126.473311
+    ]
+   }
+  ],
+  "seongbul": [
+   {
+    "file": "photos/seongbul_1.jpg",
+    "caption": "정방산 성불사의 오층 석탑과 뒤쪽 정방산",
+    "author": "David Stanley",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Songbul_Temple,_Sariwon_-_panoramio.jpg",
+    "w": 768,
+    "h": 1024,
+    "geo": [
+     38.573602,
+     125.757579
+    ]
+   },
+   {
+    "file": "photos/seongbul_2.jpg",
+    "caption": "1930년대 정방산 골짜기의 성불사 전경(조선총독부 유리 원판)",
+    "author": "Unknown author",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%EC%84%B1%EB%B6%88%EC%82%AC_%EC%A0%84%EA%B2%BD_(1930%EB%85%84%EB%8C%80).jpg",
+    "w": 849,
+    "h": 1024,
+    "geo": [
+     38.5807,
+     125.75098
+    ]
+   }
+  ],
+  "hamhung": [
+   {
+    "file": "photos/hamhung_1.jpg",
+    "caption": "함흥 본궁의 기와 전각과 앞뜰 길",
+    "author": "Uwe Brodrecht",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:0212_-_Nordkorea_2015_-_Hamhung_-_K%C3%B6nigspalast_(22976235701).jpg",
+    "w": 1024,
+    "h": 678,
+    "geo": null
+   },
+   {
+    "file": "photos/hamhung_2.jpg",
+    "caption": "함흥 본궁 안의 2층 누각 건물",
+    "author": "Uwe Brodrecht",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:0204_-_Nordkorea_2015_-_Hamhung_-_K%C3%B6nigspalast_(22965188895).jpg",
+    "w": 1024,
+    "h": 678,
+    "geo": null
+   }
+  ],
+  "jangjin": [
+   {
+    "file": "photos/jangjin_1.jpg",
+    "caption": "1950년 겨울 장진호를 내려다보는 미 해병대 관측소",
+    "author": "USMC Archives from Quantico, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Observation_Post,_Chosin_Reservoir,_1950_(15308465704).jpg",
+    "w": 1024,
+    "h": 855,
+    "geo": null
+   },
+   {
+    "file": "photos/jangjin_2.jpg",
+    "caption": "1950년 12월 장진호 남쪽 황초령(펀칠린 고개)의 눈 덮인 산길과 철수 행렬",
+    "author": "Sgt William R. Keating",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:127-GK-234J-A5408_Treadway_bridge_through_Funchilin_Pass_on_December_9,_1950.jpg",
+    "w": 1024,
+    "h": 790,
+    "geo": null
+   }
+  ],
+  "westsea": [
+   {
+    "file": "photos/westsea_1.jpg",
+    "caption": "대동강 하구를 가로막은 서해갑문과 갑문 시설",
+    "author": "David Stanley from Nanaimo, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:West_Sea_Barrage_(5063141563).jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     38.680082,
+     125.176334
+    ]
+   },
+   {
+    "file": "photos/westsea_2.jpg",
+    "caption": "언덕 위에서 내려다본 서해갑문 전경",
+    "author": "David Clayton Ellsworth",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:West_Sea_Barrage_large_view.jpg",
+    "w": 1024,
+    "h": 511,
+    "geo": null
+   }
+  ],
+  "sungyang": [
+   {
+    "file": "photos/sungyang_1.jpg",
+    "caption": "계단 위에 자리한 개성 숭양서원 건물",
+    "author": "Photlas.com",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%EA%B0%9C%EC%84%B1_%EC%88%AD%EC%96%91%EC%82%AC%EC%9B%90.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     37.9749,
+     126.56127
+    ]
+   },
+   {
+    "file": "photos/sungyang_2.jpg",
+    "caption": "숭양서원 정문에 걸린 '崧陽書院' 현판",
+    "author": "Photlas.com",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%EA%B0%9C%EC%84%B1_%EC%88%AD%EC%96%91%EC%82%AC%EC%9B%90_%ED%98%84%ED%8C%90.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     37.9749,
+     126.56128
+    ]
+   }
+  ],
+  "namdaemun": [
+   {
+    "file": "photos/namdaemun_1.jpg",
+    "caption": "개성 시내 한가운데 있는 남대문(석축 위 문루)",
+    "author": "David Stanley from Nanaimo, Canada",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Nam_Gate_in_Kaesong_(5063812320).jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     37.97191,
+     126.55644
+    ]
+   },
+   {
+    "file": "photos/namdaemun_2.jpg",
+    "caption": "가까이에서 본 개성 남대문의 문루와 홍예문",
+    "author": "Uwe Brodrecht",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:1536_-_Nordkorea_2015_-_K%C3%A4song_(22969502242).jpg",
+    "w": 677,
+    "h": 1024,
+    "geo": [
+     37.97192,
+     126.55645
+    ]
+   }
+  ],
+  "jolbon": [
+   {
+    "file": "photos/jolbon_1.jpg",
+    "caption": "환런 환룡호에서 바라본 오녀산(꼭대기가 평평한 바위산)",
+    "author": "User:Ndpy007",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%E4%BA%94%E5%A5%B3%E5%B1%B1%E8%BF%9C%E6%99%AF.jpg",
+    "w": 1024,
+    "h": 683,
+    "geo": null
+   },
+   {
+    "file": "photos/jolbon_2.jpg",
+    "caption": "절벽으로 둘러싸인 오녀산성 산꼭대기",
+    "author": "The Australian National University",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Wun%C3%BC_Mountain_City_2.jpg",
+    "w": 600,
+    "h": 433,
+    "geo": null
+   }
+  ],
+  "bukgwan": [
+   {
+    "file": "photos/bukgwan_1.jpg",
+    "caption": "서울 경복궁에 세운 북관대첩비 복제비(원비는 2006년 북한 길주로 돌아감)",
+    "author": "WaffenSS at Korean Wikipedia",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%EB%B6%81%EA%B4%80%EB%8C%80%EC%B2%A9%EB%B9%84.jpg",
+    "w": 679,
+    "h": 1024,
+    "geo": null
+   },
+   {
+    "file": "photos/bukgwan_2.jpg",
+    "caption": "반환 전 일본 야스쿠니 신사 경내에 놓여 있던 북관대첩비",
+    "author": "Ffggss",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pukkwan_Victory_Monument.jpg",
+    "w": 1024,
+    "h": 721,
+    "geo": null
+   }
+  ],
+  "kaesong_ic": [
+   {
+    "file": "photos/kaesong_ic_1.jpg",
+    "caption": "남쪽 전망대에서 바라본 개성공업지구(왼쪽)와 개성 시가(가운데)",
+    "author": "Chris",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kaesong_1.jpg",
+    "w": 1024,
+    "h": 307,
+    "geo": [
+     37.908888,
+     126.704722
+    ]
+   },
+   {
+    "file": "photos/kaesong_ic_2.jpg",
+    "caption": "개성공업지구의 시범 단지 공장 건물",
+    "author": "Kaesong_model_complex1.jpg: User:Mimura derivative work: Hic et nunc",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Kaesong_model_complex.jpg",
+    "w": 768,
+    "h": 576,
+    "geo": null
+   }
+  ],
+  "panmunjom": [
+   {
+    "file": "photos/panmunjom_1.jpg",
+    "caption": "판문점 공동경비구역의 하늘색 회담장 건물들과 북쪽 판문각",
+    "author": "David Clayton Ellsworth",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Joint_Security_Area_-_view.jpg",
+    "w": 1024,
+    "h": 768,
+    "geo": [
+     37.95594,
+     126.67698
+    ]
+   },
+   {
+    "file": "photos/panmunjom_2.jpg",
+    "caption": "1956년 판문점 공동경비구역 회담장 건물",
+    "author": "D. E. Grenier",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Joint_Security_Area_1956.jpg",
+    "w": 1024,
+    "h": 684,
+    "geo": null
+   }
+  ],
+  "gungnae": [
+   {
+    "file": "photos/gungnae_1.jpg",
+    "caption": "중국 지안의 보호각 안에 서 있는 광개토대왕릉비",
+    "author": "Yumeto",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:20230605_Stela_for_Gwanggaeto.jpg",
+    "w": 768,
+    "h": 1024,
+    "geo": [
+     41.144817,
+     126.214355
+    ]
+   },
+   {
+    "file": "photos/gungnae_2.jpg",
+    "caption": "중국 지안 시내에 남은 국내성 서남쪽 모서리 성벽 터",
+    "author": "Prcshaw",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Southwest_corner_building_ruins_Of_Gungnae_Fortress.jpg",
+    "w": 1024,
+    "h": 576,
+    "geo": [
+     41.117697,
+     126.175543
+    ]
+   }
+  ],
+  "bukcheong": [
+   {
+    "file": "photos/bukcheong_1.jpg",
+    "caption": "서울 덕수궁에서 열린 북청 사자놀음 공연(북청 지역 사진 아님)",
+    "author": "박창근",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%EB%B6%81%EC%B2%AD_%EC%82%AC%EC%9E%90%EB%86%80%EC%9D%B4.jpg",
+    "w": 1024,
+    "h": 725,
+    "geo": null
+   }
+  ],
+  "nangrim": [
+   {
+    "file": "photos/nangrim_1.jpg",
+    "caption": "1930년대 사진집에 '강계'로 실린 자강도 산간의 강과 마을(낭림산맥 서쪽 지역, 낭림산맥 자체 사진 아님)",
+    "author": "Black Dragon Society",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%E4%BA%9C%E7%B4%B0%E4%BA%9C%E5%A4%A7%E8%A6%B3_07_026_%22%E5%A4%A9%E7%84%B6%E3%81%AE%E8%A6%81%E8%A1%9D_%EF%BC%88%E6%B1%9F%E7%95%8C%E9%82%91%EF%BC%89%22.jpg",
+    "w": 1024,
+    "h": 728,
+    "geo": null
+   }
+  ]
+ }
+}

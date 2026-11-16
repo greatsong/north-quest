@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>북녘 탐험대 · 시간 여행 관제실</title>
+<meta name="description" content="시대 다이얼을 돌려 한반도 북쪽의 역사 유적과 지형을 3D 홀로그램 지도에서 탐험하는 교육 게임">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Chakra+Petch:wght@500;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body data-mode="loading">
+<div id="stage"></div>
+<div id="labels"></div>
+<div id="scanlines"></div>
+<div id="vignette"></div>
+<canvas id="fxc"></canvas>
+<div id="flash"></div>
+
+<!-- 상단 HUD -->
+<header id="hud">
+  <button class="brand" id="btn-home" title="처음 화면">
+    <span class="hex">北</span>
+    <span class="brand-t"><b>북녘 탐험대</b><small>TIME OPS</small></span>
+  </button>
+  <div id="hud-stats"></div>
+  <div class="tools">
+    <button class="tool" id="btn-view" title="지도 표시 방식"><svg viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5Zm-8 9 8 4 8-4M4 16l8 4 8-4"/></svg><span id="view-name">홀로그램</span></button>
+    <button class="tool" id="btn-archive" title="연대기 기록 보관소"><svg viewBox="0 0 24 24"><path d="M4 5h16v4H4zM5 9v10h14V9M10 13h4"/></svg><span>보관소</span></button>
+    <button class="tool" id="btn-info" title="출처·표기 안내"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>안내</span></button>
+    <button class="tool" id="btn-mute" title="소리 켜기·끄기"><svg viewBox="0 0 24 24" class="on"><path d="M4 9h4l5-4v14l-5-4H4zM16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg><svg viewBox="0 0 24 24" class="off"><path d="M4 9h4l5-4v14l-5-4H4zM16 9l5 6M21 9l-5 6"/></svg></button>
+  </div>
+</header>
+
+<!-- 탐험 목적지 안내 -->
+<div id="objective" class="holo">
+  <div class="obj-head"><span class="obj-tag">NEXT SIGNAL</span><span id="obj-step"></span></div>
+  <div class="obj-main">
+    <div class="compass"><div class="compass-n">N</div><div class="needle" id="needle"></div></div>
+    <div class="obj-text"><b id="obj-name"></b><small id="obj-dist"></small></div>
+    <button class="btn-mini" id="btn-hint">신호 추적<small>에너지 -10</small></button>
+  </div>
+</div>
+<div id="edge-arrow"><svg viewBox="0 0 40 40"><path d="M8 20h20M20 10l10 10-10 10"/></svg><span></span></div>
+
+<!-- 위치 맞히기 패널 -->
+<div id="guessbar" class="holo"></div>
+
+<!-- 시대 다이얼 -->
+<nav id="dial">
+  <div class="dial-read"><span id="dial-glyph"></span><b id="dial-name"></b><small id="dial-span"></small><em id="dial-count"></em></div>
+  <div class="dial-track">
+    <button class="dial-arrow" data-d="-1" aria-label="이전 시대">‹</button>
+    <div class="dial-nodes" id="dial-nodes"></div>
+    <button class="dial-arrow" data-d="1" aria-label="다음 시대">›</button>
+  </div>
+</nav>
+
+<!-- 장소 카드 -->
+<aside id="card"></aside>
+<div id="chooser" class="holo"></div>
+
+<!-- 타이틀 -->
+<section id="title" class="screen">
+  <div class="title-wrap">
+    <div class="t-kicker"><i></i>TIME TRAVEL CONTROL ROOM · 시간 여행 관제실</div>
+    <h1 class="t-logo" data-text="북녘 탐험대">북녘 탐험대</h1>
+    <div class="t-en">NORTH&nbsp;QUEST</div>
+    <p class="t-tag">시대 다이얼을 돌리면 그 시대의 장소가 빛 기둥으로 솟아오릅니다.<br>한반도 북쪽의 유적과 지형을 찾아 기록을 모으세요.</p>
+    <div class="t-level" id="t-level">
+      <span class="t-label">난이도</span>
+      <button data-l="1"><b>기초</b><small>느긋한 시간 · 도 이름 표시</small></button>
+      <button data-l="2"><b>보통</b><small>표준 시간 · 보통 문제</small></button>
+      <button data-l="3"><b>도전</b><small>짧은 시간 · 시대도 판정</small></button>
+    </div>
+    <div class="t-modes">
+      <button class="mode-card m-explore" data-go="missions">
+        <span class="mc-ico"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M24 11v13l9 6"/><path d="M6 24h4M38 24h4M24 3v4"/></svg></span>
+        <span class="mc-t"><b>시간 여행 미션</b><small>시대를 골라 장소를 찾아가고 문제를 풉니다</small></span>
+        <span class="mc-best" id="best-explore"></span>
+      </button>
+      <button class="mode-card m-guess" data-go="guess">
+        <span class="mc-ico"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="6"/><path d="M24 3v10M24 35v10M3 24h10M35 24h10"/></svg></span>
+        <span class="mc-t"><b>좌표 추적</b><small>장소가 어디인지 지도에 표적을 찍습니다</small></span>
+        <span class="mc-best" id="best-guess"></span>
+      </button>
+      <div class="mode-row">
+        <button class="mode-card small m-free" data-go="free"><span class="mc-t"><b>관제실 둘러보기</b><small>시대 다이얼 자유 조작</small></span></button>
+        <button class="mode-card small m-arch" data-go="archive"><span class="mc-t"><b>기록 보관소</b><small id="t-collect">수집 0 / 43</small></span></button>
+      </div>
+    </div>
+    <button class="t-foot" id="t-info">지도 출처 · 남북 표기 안내</button>
+  </div>
+</section>
+
+<!-- 미션 선택 -->
+<section id="missions" class="screen">
+  <div class="scr-head"><button class="back" data-back>‹ 돌아가기</button><h2>시간 여행 미션 선택</h2><span class="lvl-pill" id="m-level"></span></div>
+  <p class="scr-sub">시대를 고르면 시간 포털이 열립니다. 목적지 신호를 찾아 클릭하고, 도착하면 문제를 풉니다. 시간 에너지가 바닥나지 않게 서두르세요.</p>
+  <div class="mission-grid" id="mission-grid"></div>
+</section>
+
+<!-- 이상 신호 -->
+<section id="anomaly" class="screen"></section>
+
+<!-- 결과 -->
+<section id="result" class="screen"></section>
+
+<!-- 보관소 -->
+<section id="archive" class="screen"></section>
+
+<!-- 안내 -->
+<section id="info" class="screen"></section>
+
+<!-- 시간 포털 -->
+<div id="portal"><canvas></canvas><div class="p-box"><div class="p-year"></div><div class="p-title"></div><div class="p-span"></div></div></div>
+
+<div id="toasts"></div>
+<div id="loading"><div class="ld-ring"></div><div class="ld-t">홀로그램 지도 준비 중</div><div class="ld-bar"><i id="ld-fill"></i></div></div>
+<div id="err"></div>
+
+<script>
+  window.__errs = [];
+  addEventListener('error', (e) => { window.__errs.push(String(e.message)); const b = document.getElementById('err'); if (b) { b.textContent = '오류: ' + e.message; b.classList.add('on'); } });
+  addEventListener('unhandledrejection', (e) => { window.__errs.push(String(e.reason)); const b = document.getElementById('err'); if (b) { b.textContent = '오류: ' + (e.reason && e.reason.message || e.reason); b.classList.add('on'); } });
+</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

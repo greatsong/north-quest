@@ -1,0 +1,5 @@
+.DS_Store
+tools/out/in_*.md
+tools/out/log_*.txt
+__pycache__/
+.claude/

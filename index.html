@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>북녘 탐험대</title>
+<meta name="description" content="3D 지도로 한반도 북쪽의 역사 유적과 지형을 탐험하는 중·고등학생용 학습 게임">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1424; --ink: #f4f7fb; --muted: #a9b6c9; --line: rgba(255,255,255,.14);
+    --c1: #ffb43a; --c2: #7be0a7; --c3: #4fe3ff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--ink); font-family: "Noto Sans KR", system-ui, sans-serif; }
+  body { overflow-x: hidden; }
+  .map {
+    position: fixed; inset: -6%; background: url("shared/data/colormap.jpg") center/cover no-repeat;
+    filter: saturate(1.1) brightness(.55); transform: scale(1.05); animation: drift 40s ease-in-out infinite alternate;
+  }
+  .shade { position: fixed; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(11,20,36,.15), rgba(11,20,36,.85) 75%); }
+  @keyframes drift { from { transform: scale(1.05) translate(-1.5%, -1%); } to { transform: scale(1.12) translate(1.5%, 1%); } }
+  main { position: relative; max-width: 1080px; margin: 0 auto; padding: 56px 16px 40px; }
+  .kicker { letter-spacing: .3em; font-weight: 700; color: var(--c1); font-size: 13px; }
+  h1 { font-family: "Black Han Sans", sans-serif; font-weight: 400; font-size: clamp(52px, 11vw, 112px); line-height: .95; margin: 10px 0 14px; text-shadow: 0 6px 30px rgba(0,0,0,.6); }
+  h1 span { color: var(--c1); }
+  .lead { color: var(--muted); font-size: clamp(15px, 2.4vw, 18px); max-width: 620px; line-height: 1.6; margin: 0 0 34px; }
+  .stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+  .stat { border: 1px solid var(--line); background: rgba(255,255,255,.06); backdrop-filter: blur(6px); border-radius: 999px; padding: 8px 14px; font-weight: 700; font-size: 14px; }
+  .stat b { color: var(--c1); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 820px) { .cards { grid-template-columns: 1fr; } }
+  a.card {
+    --accent: var(--c1);
+    position: relative; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit;
+    border-radius: 22px; padding: 22px 20px 20px; min-height: 230px; overflow: hidden;
+    background: linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); border: 1px solid var(--line);
+    backdrop-filter: blur(10px); transition: transform .25s cubic-bezier(.2,.9,.3,1.4), border-color .2s, box-shadow .25s;
+  }
+  a.card:hover, a.card:focus-visible { transform: translateY(-8px) rotate(-.6deg); border-color: var(--accent); box-shadow: 0 18px 50px -12px var(--accent); outline: none; }
+  a.card.v2 { --accent: var(--c2); } a.card.v3 { --accent: var(--c3); }
+  a.card.special { --accent: #ff7a8a; margin-top: 16px; min-height: 0; background: linear-gradient(120deg, rgba(255,122,138,.22), rgba(255,180,58,.10) 60%, rgba(255,255,255,.03)); }
+  a.card.special h2 { font-size: clamp(24px, 4vw, 34px); padding-right: 64px; }
+  .tag { align-self: flex-start; font-weight: 900; font-size: 12px; letter-spacing: .12em; color: #0b1424; background: var(--accent); border-radius: 8px; padding: 4px 8px; }
+  .card h2 { font-family: "Black Han Sans", sans-serif; font-weight: 400; font-size: 30px; margin: 4px 0 0; }
+  .card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 15px; }
+  .card .go { margin-top: auto; font-weight: 900; color: var(--accent); }
+  .emoji { position: absolute; right: 14px; top: 10px; font-size: 54px; opacity: .9; transition: transform .3s; }
+  a.card:hover .emoji { transform: scale(1.2) rotate(8deg); }
+  a.card.wip { pointer-events: none; filter: grayscale(.6) brightness(.8); }
+  a.card.wip .go::after { content: " · 제작 중"; color: var(--muted); }
+  footer { margin-top: 40px; color: var(--muted); font-size: 12.5px; line-height: 1.7; border-top: 1px solid var(--line); padding-top: 16px; }
+  footer b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="map" aria-hidden="true"></div>
+<div class="shade" aria-hidden="true"></div>
+<main>
+  <div class="kicker">NORTH QUEST</div>
+  <h1>북녘<br><span>탐험대</span></h1>
+  <p class="lead">백두산 천지부터 개성 만월대까지. 실제 고도로 만든 3D 지도 위에서 한반도 북쪽의 유적과 지형을 찾아가고, 문제를 풀어 도감을 채웁니다.</p>
+  <div class="stats">
+    <span class="stat">장소 <b>43</b>곳</span>
+    <span class="stat">문제 <b>251</b>개</span>
+    <span class="stat">기초 · 보통 · 도전</span>
+    <span class="stat">탐험 + 위치 맞히기</span>
+  </div>
+  <div class="cards">
+    <a class="card v1" href="v1/">
+      <span class="emoji" aria-hidden="true">✈️</span>
+      <span class="tag">VERSION 1</span>
+      <h2>하늘길 탐험대</h2>
+      <p>탐사 비행기를 몰고 산맥과 강을 넘어 목적지를 찾아갑니다. 연료가 떨어지기 전에 도착하세요.</p>
+      <span class="go">이륙하기 →</span>
+    </a>
+    <a class="card v2 wip" href="v2/" aria-disabled="true">
+      <span class="emoji" aria-hidden="true">🎲</span>
+      <span class="tag">VERSION 2</span>
+      <h2>미니어처 디오라마</h2>
+      <p>책상 위 장난감 지도에서 탐험가 말을 움직이고 카드를 모읍니다. 핀을 던져 위치를 맞혀 보세요.</p>
+      <span class="go">말 놓기 →</span>
+    </a>
+    <a class="card v3" href="v3/">
+      <span class="emoji" aria-hidden="true">⏳</span>
+      <span class="tag">VERSION 3</span>
+      <h2>시간 여행 관제실</h2>
+      <p>시대 다이얼을 돌려 고조선부터 현대까지 오갑니다. 어디인지, 언제인지 함께 맞힙니다.</p>
+      <span class="go">시간 이동 →</span>
+    </a>
+  </div>
+  <a class="card special wip" href="kaesong/" aria-disabled="true">
+    <span class="emoji" aria-hidden="true">🏯</span>
+    <span class="tag">SPECIAL</span>
+    <h2>개성 특별편 · 고려의 도읍을 걷다</h2>
+    <p>실제 고도로 다시 만든 개성 일대를 드론으로 날아 본 뒤, 남대문·선죽교·만월대·왕릉 앞에 내려 직접 걸어 다닙니다. 관찰 포인트를 찾고 답사 수첩에 도장 14개를 모아 보세요.</p>
+    <span class="go">개성으로 출발 →</span>
+  </a>
+  <footer>
+    <b>지도 데이터</b> 고도: Mapzen/Tilezen Terrain Tiles(AWS Open Data) · 경계·하천: Natural Earth(퍼블릭 도메인) · 내륙 하천: 고도 데이터로 계산<br>
+    <b>지명 표기</b> 북한 현행 행정구역 표기를 사용합니다(예: 량강도, 라선, 력포). 남한 표기와 다른 경우 게임 안에서 함께 안내합니다.<br>
+    <b>내용</b> 사실 설계·검증 Claude, 설명글·문제 집필 GPT-6.1 Sol. 교사 검토 전 초안입니다.
+  </footer>
+</main>
+</body>
+</html>

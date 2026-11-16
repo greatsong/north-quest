@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>개성 특별편 · 북녘 탐험대</title>
+<meta name="description" content="실제 고도로 만든 개성 일대를 드론으로 날고, 착륙해서 고려의 도읍 유적을 걸으며 답사하는 3D 학습 게임">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="labels"></div>
+<div id="vignette"></div>
+
+<div id="hud" class="hidden">
+  <div id="hud-top">
+    <a class="chip back" href="../index.html" title="메인으로">← 메인</a>
+    <div class="chip where"><span id="where-mode">드론</span><b id="where-name">개성 상공</b></div>
+    <div class="spacer"></div>
+    <div class="chip score">점수 <b id="score">0</b></div>
+    <button class="chip btn" id="btn-book" title="답사 수첩 (N)">📒 <span class="lbl">수첩</span> <b id="stamp-count">0</b>/14</button>
+    <button class="chip btn" id="btn-sound" title="소리 켜기/끄기">🔊</button>
+  </div>
+  <div id="quest" class="panel"></div>
+  <div id="status" class="panel"></div>
+  <div id="mapbox"><canvas id="minimap" width="200" height="158"></canvas></div>
+  <div id="note" class="panel hidden"></div>
+  <div id="actions"></div>
+  <div id="pointer"><div class="arrow">▲</div><span id="pointer-txt"></span></div>
+  <div id="keys"></div>
+</div>
+
+<div id="touch" class="hidden">
+  <div id="stick"><div id="knob"></div></div>
+  <div id="tbtns"></div>
+</div>
+
+<div id="caption"></div>
+<div id="toast"></div>
+<div id="banner"></div>
+<div id="obs-pop"></div>
+<div id="modal" class="hidden"></div>
+<div id="fx"></div>
+
+<div id="title" class="hidden">
+  <div class="t-inner">
+    <div class="kicker">NORTH QUEST · 특별편</div>
+    <h1>개성<br><span>답사 비행</span></h1>
+    <p class="lead">드론을 타고 실제 지형 그대로의 개성 하늘을 날다가, 유적 위에 내려앉아 직접 걸어 봅니다. 관찰 포인트를 찾고 도장을 모으면 졸업 시험이 열립니다.</p>
+    <div class="diff" id="diff">
+      <button data-d="1"><b>기초</b><small>힌트 넉넉 · 시간 제한 없음</small></button>
+      <button data-d="2"><b>보통</b><small>힌트 1번 · 30초</small></button>
+      <button data-d="3"><b>도전</b><small>힌트 없음 · 15초</small></button>
+    </div>
+    <div class="t-btns">
+      <button class="big" id="btn-start">출발하기</button>
+      <button class="ghost" id="btn-skip">바로 자유 비행</button>
+      <button class="ghost" id="btn-title-book">답사 수첩</button>
+    </div>
+    <p class="t-foot">지형: Mapzen/Tilezen Terrain Tiles(AWS Open Data) 고도 자료, 고도 1.2배. 장소 설명·문제: 교사 검토용 초안. 북한 현행 표기를 함께 사용합니다. <a href="../index.html">메인으로 돌아가기</a></p>
+  </div>
+</div>
+
+<div id="loading">
+  <div class="ld-box">
+    <div class="ld-title">개성 특별편</div>
+    <div class="ld-bar"><i id="ld-fill"></i></div>
+    <div id="ld-text">지형을 불러오는 중입니다</div>
+  </div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
